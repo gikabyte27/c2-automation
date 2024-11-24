@@ -5,10 +5,10 @@
   vars_files:
     - vars/ssh_config.yml
   tasks:
-    - name: Import SSH configuration tasks
-      include_tasks: tasks/secure_ssh.yml
     - name: Update repository and upgrade packages
       include_tasks: tasks/update.yml
+    - name: Import SSH configuration tasks
+      include_tasks: tasks/secure_ssh.yml
     - name: Import Apache installation tasks
       include_tasks: tasks/apache2.yml
   handlers:

@@ -8,6 +8,7 @@
     line: "PermitRootLogin no"
     backup: yes
   notify: Restart SSH
+  tags: ssh
 
 - name: Disable SSH Password Authentication
   vars:
@@ -18,3 +19,11 @@
     line: "PasswordAuthentication no"
     backup: yes
   notify: Restart SSH
+  tags: ssh
+
+- name: Install fail2ban
+  become: true
+  apt:
+    name: fail2ban
+    state: latest
+  tags: fail2ban
