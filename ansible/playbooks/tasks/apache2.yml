@@ -1,0 +1,6 @@
+---
+- name: Install apache2
+  become: true
+  apt:
+    name: apache2
+    state: latest
