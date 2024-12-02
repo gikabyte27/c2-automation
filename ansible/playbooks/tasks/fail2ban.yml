@@ -1,0 +1,22 @@
+---
+- name: Install Fail2ban
+  become: true
+  apt:
+    name: fail2ban
+    state: latest
+  tags: fail2ban
+
+- name: Configure Fail2ban
+  copy:
+    src: /etc/fail2ban/jail.conf
+    dest: /etc/fail2ban/jail.local
+    remote_src: yes
+
+- name: Add "enabled = true" under "[sshd]"
+  lineinfile:
+    path: /etc/fail2ban/jail.local
+    insertafter: '^\[sshd\]'
+    line: 'enabled = true'
+    backup: no  # Skip additional backups since we already backed up manually
+  notify: Restart fail2ban
+

@@ -1,25 +1,21 @@
 ---
-- name: Deploy C2 Redirector
+- name: Deploy C2 Team Server
   become: true
-  hosts: c2-redirector
+  hosts: c2-teamserver
   vars_files:
     - vars/ssh_config.yml
   tasks:
-    #- name: Update repository and upgrade packages
-    #  include_tasks: tasks/update.yml
+    - name: Update repository and upgrade packages
+      include_tasks: tasks/update.yml
     - name: Configure SSH
       include_tasks: tasks/secure_ssh.yml
     - name: Install and configure Fail2ban
       include_tasks: tasks/fail2ban.yml
     - name: Configure logrotate
       include_tasks: tasks/logrotate.yml
-    - name: Install and configure apache
-      include_tasks: tasks/apache2.yml
-    - name: Configure Apache2 default SSL
-      include_tasks: tasks/enable_apache2_ssl.yml
-    - name: Set hostname for Redirector
+    - name: Set hostname for Team Server
       hostname:
-        name: redirector
+        name: teamserver
   handlers:
     - name: Restart SSH
       service:

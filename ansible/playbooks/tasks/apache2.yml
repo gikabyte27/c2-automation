@@ -4,3 +4,18 @@
   apt:
     name: apache2
     state: latest
+  tags: apache2
+
+- name: Enable required Apache modules
+  apache2_module:
+    state: present
+    name: "{{ item }}"
+  with_items:
+    - ssl
+    - rewrite
+    - proxy
+    - proxy_http
+  notify: Restart Apache2
+  tags: apache2
+
+

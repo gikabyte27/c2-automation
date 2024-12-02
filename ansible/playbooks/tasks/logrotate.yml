@@ -1,0 +1,10 @@
+---
+- name: Configure logrotate
+  become: true
+  lineinfile:
+    path: /etc/logrotate.d/rsyslog
+    insertbefore: '^}$'
+    line: '\tsize 100M'
+    backup: yes  # Skip additional backups since we already backed up manually
+  notify: Restart rsyslog
+
